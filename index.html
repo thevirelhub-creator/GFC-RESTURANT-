@@ -416,7 +416,7 @@ let total = 0;
 function addToCart(item, price){
 total += price;
 
-document.getElementById("cartTotal").innerHTML =
+document.getElementById("cartTotal").textContent =
 "🛒 Cart Total: ₹" + total;
 
 alert(item + " Added to Cart");
