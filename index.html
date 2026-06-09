@@ -251,7 +251,7 @@ GOOD FOOD • GOOD MOOD
 <span class="price">₹50</span>
 <div>
 <button onclick="removeFromCart(50)">−</button>
-<button onclick="addToCart(50)">+</button>
+<button onclick="addToCart('Paneer Burger',50)">+</button>
 </div>
 </div>    
 
@@ -644,10 +644,12 @@ style="width:90%;padding:12px;margin:8px;border-radius:10px;">
 <script>
 let total = 0;
 let items = 0;
+let orderItems = [];
 
-function addToCart(price){
+function addToCart(name, price){
     total += price;
     items++;
+    orderItems.push(name + " - ₹" + price);
 
     document.getElementById("cartTotal").innerHTML =
     "🛒 " + items + " Items | ₹" + total;
@@ -683,7 +685,8 @@ let msg =
 "👤 Name: " + name + "\n" +
 "📞 Mobile: " + mobile + "\n" +
 "📍 Address: " + address + "\n\n" +
-
+    
+"📋 Items:\n" + orderItems.join("\n") + "\n\n" +
 "🛒 Total Items: " + items + "\n" +
 "💰 Total Bill: ₹" + total;
 
