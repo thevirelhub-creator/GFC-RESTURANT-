@@ -657,6 +657,7 @@ Fresh Food • Great Taste • Fast Service
 let total = 0;
 let items = 0;
 let orderItems = [];
+let paymentDone = false;
 
 function addToCart(name, price){
     total += price;
@@ -683,11 +684,15 @@ function removeFromCart(price){
     }
 }
 function payNow(){
+paymentDone = true;
 window.location.href =
 "upi://pay?pa=govindgupta822-3@okhdfcbank&pn=GFC Restaurant&am="+total+"&cu=INR";
 }
 function placeOrder(){
-
+    if(!paymentDone){
+alert("❌ Pehle Payment Kare");
+return;
+    }
 
 let name =
 document.getElementById("custName").value;
