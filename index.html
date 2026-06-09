@@ -665,6 +665,7 @@ function addToCart(name, price){
 
     document.getElementById("cartTotal").innerHTML =
     "🛒 " + items + " Items | ₹" + total;
+    document.getElementById("payAmount").innerText = total;
 }
 
 function removeFromCart(price){
@@ -681,13 +682,12 @@ function removeFromCart(price){
         document.getElementById("payAmount").innerText = total;
     }
 }
-function placeOrder(){
-alert("Button Working");
-
 function payNow(){
 window.location.href =
 "upi://pay?pa=govindgupta822-3@okhdfcbank&pn=GFC Restaurant&am="+total+"&cu=INR";
 }
+function placeOrder(){
+
 
 let name =
 document.getElementById("custName").value;
