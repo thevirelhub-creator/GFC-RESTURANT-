@@ -240,6 +240,25 @@ color:#fff !important;
 .rating-box .menu-title{
 background:rgba(196,0,0,0.7);
     }
+
+.customer-box{
+background:rgba(255,255,255,0.15)!important;
+backdrop-filter:blur(12px);
+-webkit-backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.2);
+width:90%;
+margin:20px auto;
+}
+
+.customer-box input{
+background:rgba(255,255,255,0.2);
+color:white;
+border:1px solid rgba(255,255,255,0.3);
+}
+
+.customer-box input::placeholder{
+color:#ddd;
+}
     
 </style>
 </head>
@@ -623,7 +642,8 @@ class="btn call">
 </div>
 </div>   <!-- WhatsApp button wala section end -->
 
-<div class="menu-card">
+<div class="menu-card customer-box">
+   <input type="text" id="custName" ...
    <input type="text" id="custName" placeholder="Your Name"
 style="width:90%;padding:12px;margin:8px;border-radius:10px;">
 
