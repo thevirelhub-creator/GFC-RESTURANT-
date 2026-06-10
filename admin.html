@@ -27,6 +27,29 @@ box-shadow:0 2px 5px rgba(0,0,0,0.2);
 <body>
 
 <h1>🍔 GFC Restaurant Orders</h1>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:20px 0;">
+  
+  <div style="background:#2196f3;color:white;padding:15px;border-radius:10px;flex:1;">
+    <h3>Total Orders</h3>
+    <h2 id="totalOrders">0</h2>
+  </div>
+
+  <div style="background:#ff9800;color:white;padding:15px;border-radius:10px;flex:1;">
+    <h3>Pending</h3>
+    <h2 id="pendingOrders">0</h2>
+  </div>
+
+  <div style="background:#4caf50;color:white;padding:15px;border-radius:10px;flex:1;">
+    <h3>Delivered</h3>
+    <h2 id="deliveredOrders">0</h2>
+  </div>
+
+  <div style="background:#d60000;color:white;padding:15px;border-radius:10px;flex:1;">
+    <h3>Total Sales</h3>
+    <h2 id="totalSales">₹0</h2>
+  </div>
+
+</div>
 
 <div id="orders"></div>
 
@@ -55,10 +78,25 @@ const db = getFirestore(app);
 const querySnapshot = await getDocs(collection(db,"orders"));
 
 let html = "";
+let totalOrders = 0;
+let pendingOrders = 0;
+let deliveredOrders = 0;
+let totalSales = 0;
 
 querySnapshot.forEach((doc)=>{
 
 let o = doc.data();
+totalOrders++;
+
+if(o.status=="Pending"){
+pendingOrders++;
+}
+
+if(o.status=="Delivered"){
+deliveredOrders++;
+}
+
+totalSales += Number(o.totalBill || 0);
 
 html += `
 <div class="order">
@@ -88,7 +126,10 @@ ${o.status}
 `;
 
 });
-
+document.getElementById("totalOrders").innerText = totalOrders;
+document.getElementById("pendingOrders").innerText = pendingOrders;
+document.getElementById("deliveredOrders").innerText = deliveredOrders;
+document.getElementById("totalSales").innerText = "₹" + totalSales;
 document.getElementById("orders").innerHTML = html;
 window.changeStatus = async function(orderId,newStatus){
 
