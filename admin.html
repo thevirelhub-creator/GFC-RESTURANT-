@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GFC Admin Panel</title>
+<style>
+body{
+font-family:Arial;
+padding:20px;
+background:#f5f5f5;
+}
+
+h1{
+text-align:center;
+color:#d60000;
+}
+
+.order{
+background:white;
+padding:15px;
+margin:15px 0;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+
+<body>
+
+<h1>🍔 GFC Restaurant Orders</h1>
+
+<div id="orders"></div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import {
+getFirestore,
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAnoH7FODacQhEkSkH57rykzHj8Ma93r74",
+authDomain: "gfc-restaurant-51bb8.firebaseapp.com",
+projectId: "gfc-restaurant-51bb8",
+storageBucket: "gfc-restaurant-51bb8.firebasestorage.app",
+messagingSenderId: "59057512480",
+appId: "1:59057512480:web:45d9dcd26a36048cd99c45"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const querySnapshot = await getDocs(collection(db,"orders"));
+
+let html = "";
+
+querySnapshot.forEach((doc)=>{
+
+let o = doc.data();
+
+html += `
+<div class="order">
+<h3>🆔 Order</h3>
+
+<p><b>Name:</b> ${o.customerName}</p>
+<p><b>Mobile:</b> ${o.mobile}</p>
+<p><b>Address:</b> ${o.address}</p>
+<p><b>Total:</b> ₹${o.totalBill}</p>
+<p><b>Status:</b> ${o.status}</p>
+
+</div>
+`;
+
+});
+
+document.getElementById("orders").innerHTML = html;
+
+</script>
+
+</body>
+</html>
