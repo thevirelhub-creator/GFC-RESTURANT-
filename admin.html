@@ -57,11 +57,12 @@ box-shadow:0 2px 5px rgba(0,0,0,0.2);
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
-getFirestore,
-collection,
-getDocs,
-updateDoc,
-doc
+ getFirestore,
+ collection,
+ getDocs,
+ updateDoc,
+ deleteDoc,
+ doc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 const firebaseConfig = {
 apiKey: "AIzaSyAnoH7FODacQhEkSkH57rykzHj8Ma93r74",
@@ -122,6 +123,9 @@ ${o.status}
 <button onclick="changeStatus('${doc.id}','Delivered')">
 🟢 Delivered
 </button>
+<button onclick="deleteOrder('${doc.id}')">
+❌ Delete
+</button>
 
 </div>
 `;
@@ -146,6 +150,21 @@ document.getElementById(
 ).innerText = newStatus;
 
 alert("Status Updated Successfully");
+}
+window.deleteOrder = async function(orderId){
+
+if(confirm("Delete this order?")){
+
+await deleteDoc(
+doc(db,"orders",orderId)
+);
+
+alert("Order Deleted Successfully");
+
+location.reload();
+
+}
+
 }
 
 </script>
