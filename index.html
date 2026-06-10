@@ -604,7 +604,20 @@ style="width:90%;padding:12px;margin:8px;border-radius:10px;">
 📱 Order on WhatsApp
 </button>
 </div>
+<hr>
 
+<h2>🔍 Track Your Order</h2>
+
+<input type="text" id="trackOrderId"
+placeholder="Enter Order ID">
+
+<button onclick="trackOrder()">
+Track Order
+</button>
+
+<div id="trackResult"
+style="margin-top:10px;font-weight:bold;">
+</div>
 <div class="menu-card">
 
 <div class="menu-title">⭐ Customer Rating</div>
@@ -750,7 +763,12 @@ encodeURIComponent(msg),
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyAnoH7FODacQhEkSkH57rykzHj8Ma93r74",
@@ -773,6 +791,41 @@ window.saveOrder = async function(orderData) {
     console.error(error);
   }
 };
+window.trackOrder = async function(){
+
+let orderId =
+document.getElementById("trackOrderId").value;
+
+const snapshot =
+await getDocs(collection(db,"orders"));
+
+let found = false;
+
+snapshot.forEach((doc)=>{
+
+let o = doc.data();
+
+if(o.orderId === orderId){
+
+found = true;
+
+document.getElementById("trackResult").innerHTML =
+"✅ Order Found<br>" +
+"Order ID: " + o.orderId + "<br>" +
+"Status: " + o.status;
+
+}
+
+});
+
+if(!found){
+
+document.getElementById("trackResult").innerHTML =
+"❌ Order Not Found";
+
+}
+
+}
 </script>
 </body>
 </html>
