@@ -289,6 +289,30 @@ alert("Status Updated Successfully");
 }
 window.deleteOrder = async function(orderId){
 
+try{
+
+console.log("Deleting:", orderId);
+
+if(confirm("Delete this order?")){
+
+await deleteDoc(
+doc(db,"orders",orderId)
+);
+
+alert("Order Deleted Successfully");
+
+location.reload();
+
+}
+
+}catch(error){
+
+alert("Delete Error: " + error.message);
+console.log(error);
+
+}
+
+}
 if(confirm("Delete this order?")){
 
 await deleteDoc(
