@@ -728,6 +728,17 @@ let msg =
 "💰 Total Bill: ₹" + total;
 
 saveOrder({
+  orderId: "GFC" + Date.now(),
+  customerName: name,
+  mobile: mobile,
+  address: address,
+  items: orderItems,
+  totalItems: items,
+  totalBill: total,
+  orderDate: orderDate,
+  orderTime: orderTime,
+  status: "Pending"
+});
   customerName: name,
   mobile: mobile,
   address: address,
