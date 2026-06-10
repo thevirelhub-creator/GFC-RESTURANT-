@@ -197,17 +197,39 @@ totalSales += Number(o.totalBill || 0);
 
 html += `
 <div class="order-card">
+
 <h3>🆔 Order</h3>
 
-<pre style="color:white;white-space:pre-wrap;">
-${JSON.stringify(o,null,2)}
-</pre>
+<p><b>Order ID:</b> ${o.orderId || "N/A"}</p>
+<p><b>Name:</b> ${o.customerName || "N/A"}</p>
+<p><b>Mobile:</b> ${o.mobile || "N/A"}</p>
+<p><b>Address:</b> ${o.address || "N/A"}</p>
+<p><b>Items:</b> ${o.totalItems || 0}</p>
+<p><b>Total:</b> ₹${o.totalBill || 0}</p>
+<p><b>Date:</b> ${o.orderDate || ""}</p>
+<p><b>Time:</b> ${o.orderTime || ""}</p>
 
-<p><b>Status:</b>
+<p>
+<b>Status:</b>
 <span id="status-${doc.id}">
 ${o.status}
 </span>
 </p>
+
+<button onclick="changeStatus('${doc.id}','Preparing')">
+🟠 Preparing
+</button>
+
+<button onclick="changeStatus('${doc.id}','Delivered')">
+🟢 Delivered
+</button>
+
+<button onclick="deleteOrder('${doc.id}')">
+❌ Delete
+</button>
+
+</div>
+`;
 
 <button onclick="changeStatus('${doc.id}','Preparing')">
 🟠 Preparing
